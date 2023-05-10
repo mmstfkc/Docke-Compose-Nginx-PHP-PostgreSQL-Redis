@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     depends_on:
-      - postgres
+      - postgresql
       - redis
     restart: on-failure
     networks:
@@ -33,7 +33,7 @@ services:
     networks:
       - nginx-php-postgres-redis
 
-  postgres:
+  postgresql:
     image: postgres:14
     container_name: my-postgres
     restart: always
@@ -54,7 +54,6 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - ./postgres/pgadmin:/var/lib/pgadmin
@@ -69,8 +68,6 @@ services:
     restart: always
     ports:
       - "6379:6379"
-    volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
     networks:
       - nginx-php-postgres-redis
 

@@ -11,7 +11,26 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     nginx \
     net-tools \
-    iputils-ping
+    iputils-ping \
+    libxml2 \
+    libxml2-dev \
+    libssl-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libpq-dev \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libonig-dev \
+    libmcrypt-dev \
+    libreadline-dev
+
+# Install PHP extensions
+RUN docker-php-ext-install soap \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-install gd
 
 # Install PHP 8.1 CLI and Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
