@@ -11,6 +11,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       REDIS_PASSWORD: ${REDIS_PASSWORD}
+      OPCACHE_VALIDATE_TIMESTAMPS: '0'
+      PHP_OPCACHE_MAX_ACCELERATED_FILES: '7963'
+      PHP_OPCACHE_MEMORY_CONSUMPTION: '192'
+      PHP_OPCACHE_MAX_WASTED_PERCENTAGE: '10'
     depends_on:
       - postgresql
       - redis
@@ -34,13 +38,14 @@ services:
       - nginx-php-postgres-redis
 
   postgresql:
-    image: postgres:14
+    image: postgres:14-alpine
     container_name: my-postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       PGDATA: /data/postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - ./postgres/data:/data/postgres
     ports:
