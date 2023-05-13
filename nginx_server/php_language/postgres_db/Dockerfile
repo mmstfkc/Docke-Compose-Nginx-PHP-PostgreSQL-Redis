@@ -1,23 +1,23 @@
+# Base image
 FROM php:8.1-fpm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
     libzip-dev \
     libpq-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install soap \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install sockets \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_pgsql pgsql
+RUN docker-php-ext-install zip pdo_pgsql pgsql
 
 # Install PHP 8.1 CLI and Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Optimize Composer installation
+RUN COMPOSER_HOME=/tmp/composer composer --version
+
+# Redis PHP extension
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Set working directory
 WORKDIR /var/www
