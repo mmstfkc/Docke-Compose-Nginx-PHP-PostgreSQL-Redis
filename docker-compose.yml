@@ -3,7 +3,7 @@ version: '3.9'
 services:
   php:
     build:
-      context: postgres_db
+      context: .
       dockerfile: Dockerfile
     container_name: my-php
     volumes:
