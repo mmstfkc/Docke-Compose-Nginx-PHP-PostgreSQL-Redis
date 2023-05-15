@@ -21,3 +21,5 @@ After filling your env information in the project with the .env file information
     DB_HOST=my-postgres
     REDIS_HOST=my-redis
 ```
+
+This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
